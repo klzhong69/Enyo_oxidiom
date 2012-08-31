@@ -1,0 +1,75 @@
+/*
+body { 
+  background-image: url("img/class.png") no-repeat center center fixed; 
+      background:url('img/class.jpg') no-repeat center fixed;
+}
+*/
+
+html { 
+background: url(img/class.png) no-repeat center center fixed; 
+-webkit-background-size: cover; 
+-moz-background-size: cover; 
+}
+
+
+.App{
+    border:0px solid;
+    width:100%;
+    height:100%;
+    outline: none; /* for Firefox */
+    -webkit-user-select:none;
+    -moz-user-select: none;
+}
+
+.oxidiom{
+    width:100%;
+    height:100%;
+    border:0px solid blue;
+    overflow:auto;
+
+}
+
+.searchFinal{
+    width:20%;
+    height:70%;
+    border:0px solid;
+    float:left;
+}
+
+.searchFinal_botton{
+    margin:10px 15px 10px 15px;
+    border:solid 0px;
+}
+
+.searchFinal_botton:active{
+    background:green;
+    margin:10px 15px 10px 15px;
+    border:solid 0px;
+}
+
+.searchInput{
+    text-align:center;
+    width:100%;
+    height:15%;
+    border:0px solid;
+    margin:0px 0px 0px 0px;
+}
+
+.searchBar{
+    margin:20px 0px 0px 20px;
+}
+
+.changeButton{
+    width:100%;
+    height:15%;
+    border:0px solid;
+    margin:0px 0px 0px 0px;
+    text-align:center;
+}
+
+.changeIframe{
+    width:80%;
+    height:70%;
+    border:0px solid red;
+    margin:0px 0px 0px 20%;
+}
