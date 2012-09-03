@@ -29,6 +29,22 @@ enyo.kind({
     
     show: function(inSender,inEvent,pagenumber) {
         this.showButton();
+        var request =  new enyo.Ajax({
+            url: this.$.changeButton.$.buttons.controls[0].value,
+            method: "GET",
+            handleAs: "text"
+        });
+        request.response(this, "firstpage");
+        request.go({});
+    },
+    
+            
+    firstpage :function(inSender,inResponse) {
+        this.$.changeIframe.createComponent({
+            allowHtml:true,
+            content:inResponse
+        })
+        this.$.changeIframe.render(); 
     },
     
     showButton: function(inSender,inEvent){
@@ -38,10 +54,10 @@ enyo.kind({
             kind: "onyx.RadioGroup",
             name:"buttons",
             components:[
-                {kind: "onyx.Button",value:"chengyu/pho/cy/cy"+this.pagenumber+".htm",content:"音讀與釋義",ontap:"a"},
-                {kind: "onyx.Button",value:"chengyu/pho/bj/bj"+this.pagenumber+".htm",content:"辨識",ontap:"a"},
-                {kind: "onyx.Button",value:"chengyu/pho/yung/yung"+this.pagenumber+".htm",content:"用法說明",ontap:"a"},
-                {kind: "onyx.Button",value:"chengyu/pho/sj/sj"+this.pagenumber+".htm",content:"書證",ontap:"a"}
+                {kind: "onyx.Button",name:"cy",active:true,value:"chengyu/pho/cy/cy"+this.pagenumber+".htm",content:"音讀與釋義",ontap:"getpage"},
+                {kind: "onyx.Button",name:"bj",value:"chengyu/pho/bj/bj"+this.pagenumber+".htm",content:"辨識",ontap:"getpage"},
+                {kind: "onyx.Button",name:"yung",value:"chengyu/pho/yung/yung"+this.pagenumber+".htm",content:"用法說明",ontap:"getpage"},
+                {kind: "onyx.Button",name:"sj",value:"chengyu/pho/sj/sj"+this.pagenumber+".htm",content:"書證",ontap:"getpage"}
             ]
         })
         this.$.changeButton.render();
@@ -110,7 +126,8 @@ enyo.kind({
         {kind: "onyx.InputDecorator", classes:"searchBar",components: [
             {kind: "onyx.Input",name:"word", published:{value:"", placeholder: ""}}
         ]},
-        {kind: "onyx.Button", classes:"searchBar",content: "搜尋",ontap:"search"}
+        {kind: "onyx.Button", classes:"searchBar",content: "搜尋",ontap:"search"},
+        {name: "searchSpinner", kind: "Image", src: "assets/spinner.gif", showing: false}
     ],
     events: {
         onSearch:""
@@ -134,19 +151,19 @@ enyo.kind({
         onChange:""
     },
     
-    a:   function(inSender){
-        //alert(inSender.value);
+    getpage:   function(inSender,inEvent){
         var request =  new enyo.Ajax({
             url:inSender.value,
             method: "GET",
             handleAs: "text"
         });
-        request.response(this,"b");
+        request.response(this,"changeContent");
         request.go({});         
     },
-    b: function(inSender,inResponse){
-        this.getStr = inResponse;
-        //alert(this.getStr);
+    changeContent: function(inSender,inResponse){
+        this.getStr = inResponse.replace('../picture/sybian.gif','chengyu/pho/picture/sybian.gif')
+        this.getStr = this.getStr.replace('../picture/same.gif','chengyu/pho/picture/same.gif')
+        this.getStr = this.getStr.replace('../picture/anti.gif','chengyu/pho/picture/anti.gif')
         this.doChange(inSender); 
     },
 })
