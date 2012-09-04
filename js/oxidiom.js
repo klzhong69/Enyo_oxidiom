@@ -6,6 +6,7 @@ enyo.kind({
     searchWord:"",
     wordLength:"",
     pagenumber:"",
+    getStr:"",
     components:[
         {kind:"searchInput",name:"searchInput",onSearch:"getWords"},
         {kind:"changeButton",name:"changeButton",onChange:"changeFile"},
@@ -14,6 +15,7 @@ enyo.kind({
     ],
     
     getWords: function(inSender,inEvent){
+        this.searchWord = this.$.searchInput.searchWord;
         this.$.changeIframe.destroyClientControls();
         this.$.changeButton.destroyClientControls();
         this.$.searchFinal.destroyClientControls();
@@ -27,7 +29,8 @@ enyo.kind({
         request.go({});
     },
     
-    show: function(inSender,inEvent,pagenumber) {
+    show: function(inSender,inEvent) {
+        this.pagenumber = this.$.searchFinal.pagenumber;
         this.showButton();
         var request =  new enyo.Ajax({
             url: this.$.changeButton.$.buttons.controls[0].value,
@@ -38,13 +41,15 @@ enyo.kind({
         request.go({});
     },
     
-            
     firstpage :function(inSender,inResponse) {
+        this.getStr = inResponse;
+        this.deletegetSt();
         this.$.changeIframe.createComponent({
             allowHtml:true,
-            content:inResponse
+            content:this.getStr
         })
-        this.$.changeIframe.render(); 
+        this.$.changeIframe.render();
+        this.getStr=""
     },
     
     showButton: function(inSender,inEvent){
@@ -75,17 +80,19 @@ enyo.kind({
                     allowHtml:true,
                     content:""+'<a>'+key.substr(0 ,S)+'</a>'+'<a style = "color:#FF0000;">'+key.substr(S ,this.wordLength)+'</a>'+'<a>'+key.substr((S+this.wordLength) ,W)+'</a>'+"",
                     ontap:"show"
-                }) 
-                this.$.searchFinal.render();               
+                })              
 			}
 		}
+        this.$.searchFinal.render();  
     },
     
     changeFile: function(inSender) {
+        this.getStr = inSender.getStr
+        this.deletegetSt();
         this.$.changeIframe.destroyClientControls();
         this.$.changeIframe.createComponent({
             allowHtml:true,
-            content:inSender.getStr
+            content:this.getStr
         })
         //this.$.changeIframe.destroyClientControls();
         //alert(inSender.getStr)
@@ -93,83 +100,22 @@ enyo.kind({
         //~ this.$.changeIframe.setContent("")
         //~ this.$.changeIframe.addContent(inSender.getStr)
         this.$.changeIframe.render(); 
-        inSender.getStr=""; 
-    }
-}); 
-
-enyo.kind({
-    name:"searchFinal",
-    kind: "Scroller",
-    horizontal: "hidden",
-    vertical:"auto",
-    scrollTop:"",
-    attributes:{ondragstart:"return false"},
-    classes:"searchFinal",
-    components:[
-    ],
-    
-    events: {
-        onTap:""
+        this.getStr=""; 
     },
     
-    show:   function(inSender){
-        this.parent.pagenumber = inSender.name
-        this.doTap();
-    }
-})
-
-enyo.kind({
-    name:"searchInput",
-    classes:"searchInput",
-    tag:"div",
-    components:[
-        {kind: "onyx.InputDecorator", classes:"searchBar",components: [
-            {kind: "onyx.Input",name:"word", published:{value:"", placeholder: ""}}
-        ]},
-        {kind: "onyx.Button", classes:"searchBar",content: "搜尋",ontap:"search"},
-        {name: "searchSpinner", kind: "Image", src: "assets/spinner.gif", showing: false}
-    ],
-    events: {
-        onSearch:""
-    },
-    search: function(inSender , inEvent){
-        this.parent.searchWord = this.$.word.getValue();
-        this.doSearch();
-    },
-    //~ 
-    //~ getKeyborad: function(inSender , inEvent){
-        //~ exec_async("/usr/bin/oxim-agent -e keyboard_show"); 
-    //~ }
-})
-
-enyo.kind({
-    name:"changeButton",
-    classes:"changeButton",
-    tag:"div",
-    getStr:"",
-    events: {
-        onChange:""
-    },
-    
-    getpage:   function(inSender,inEvent){
-        var request =  new enyo.Ajax({
-            url:inSender.value,
-            method: "GET",
-            handleAs: "text"
-        });
-        request.response(this,"changeContent");
-        request.go({});         
-    },
-    changeContent: function(inSender,inResponse){
-        this.getStr = inResponse.replace('../picture/sybian.gif','chengyu/pho/picture/sybian.gif')
+    deletegetSt: function(inSender , inEvent) {
+        this.getStr = this.getStr.replace('../picture/sybian.gif','chengyu/pho/picture/sybian.gif')
         this.getStr = this.getStr.replace('../picture/same.gif','chengyu/pho/picture/same.gif')
         this.getStr = this.getStr.replace('../picture/anti.gif','chengyu/pho/picture/anti.gif')
-        this.doChange(inSender); 
-    },
-})
-
-enyo.kind({
-    name:"changeIframe",
-    classes:"changeIframe",
-    kind: "Scroller",
-})
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>1></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>2></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>3></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>4></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>5></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>6></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>7></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>8></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>9></i></b></font>','')
+        this.getStr = this.getStr.replace('<font size=-2 color="#999900"><b><i>10></i></b></font>','')
+    }
+}); 

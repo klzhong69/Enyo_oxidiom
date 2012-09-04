@@ -1,5 +1,9 @@
 enyo.depends(
     "oxidiom.js",
+    "searchInput.js",
+    "searchFinal.js",
+    "changeButton.js",
+    "changeIframe.js",
     "../layout/package.js",
     "../onyx/package.js",
     "../css/enyo.css",
