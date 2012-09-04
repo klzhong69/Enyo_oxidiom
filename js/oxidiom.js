@@ -8,8 +8,12 @@ enyo.kind({
     pagenumber:"",
     getStr:"",
     components:[
-        {kind:"searchInput",name:"searchInput",onSearch:"getWords"},
-        {kind:"changeButton",name:"changeButton",onChange:"changeFile"},
+        {kind: "Control",classes:"InputDecorator", components: [
+            {kind:"searchInput",name:"searchInput",onSearch:"getWords"},
+            {kind:"changeButton",name:"changeButton",onChange:"changeFile"},
+        ]},
+        //~ {kind:"searchInput",name:"searchInput",onSearch:"getWords"},
+        //~ {kind:"changeButton",name:"changeButton",onChange:"changeFile"},
         {kind:"searchFinal",name:"searchFinal",onTap:"show"},
         {kind:"changeIframe",name:"changeIframe"}
     ],
@@ -80,10 +84,10 @@ enyo.kind({
                     allowHtml:true,
                     content:""+'<a>'+key.substr(0 ,S)+'</a>'+'<a style = "color:#FF0000;">'+key.substr(S ,this.wordLength)+'</a>'+'<a>'+key.substr((S+this.wordLength) ,W)+'</a>'+"",
                     ontap:"show"
-                })              
+                })       
 			}
 		}
-        this.$.searchFinal.render();  
+        this.$.searchFinal.render();
     },
     
     changeFile: function(inSender) {
