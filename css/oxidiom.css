@@ -1,12 +1,9 @@
-/*
 body { 
-  background-image: url("img/class.png") no-repeat center center fixed; 
-      background:url('img/class.jpg') no-repeat center fixed;
+    font-family:open hei;
 }
-*/
+
 
 html { 
-    font-family:open hei;
     background: url(img/class.png) no-repeat center center fixed; 
     -webkit-background-size: cover; 
     -moz-background-size: cover; 
@@ -27,6 +24,10 @@ html {
     height:20%;
     border:solid 0px;
     float:left;
+}
+
+.input_word{
+    font-family:open hei;
 }
 
 .searchFinal{
@@ -59,7 +60,9 @@ html {
 }
 
 .searchBar{
+    font-family:open hei;
     margin:20px 0px 0px 20px;
+    border:solid 1px grey;
 }
 
 .changeButton{
